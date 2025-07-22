@@ -1,4 +1,4 @@
-<h1>Desafio de projeto: Mario Kart.JS</h1>
+<h1>Desafio de projeto do Felipão: Mario Kart.JS</h1>
 
 <table>
     <tr>
@@ -113,7 +113,7 @@
 <input type="checkbox" id="vitoria-item" />
 <label for="vitoria-item">Ao final, vence quem acumulou mais pontos</label>
 <br></br>
-<b>Complementos do confronto:</b>
+<b>Complementos do confronto</b>
 
-<input type="checkbox" /> Sortear aleatoriamente se é um casco(-1 ponto) ou um bomba(-2 pontos)
-<input type="checkbox" /> Quem vence o confronto ganha um turbo (+ 1ponto) aleatoriamente
+<li><input type="checkbox" /> Sortear aleatoriamente se é um casco(-1 ponto) ou um bomba(-2 pontos)</li>
+<li><input type="checkbox" /> Quem vence o confronto ganha um turbo (+ 1ponto) aleatoriamente</li>
