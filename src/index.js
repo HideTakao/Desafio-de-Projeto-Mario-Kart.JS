@@ -38,6 +38,25 @@ async function logRollResult(characterName, block, diceResult, attribute) {
     console.log(`${characterName} 🎲 rolou um dado de ${block} ${diceResult} + ${attribute} = ${diceResult + attribute}`)
 }
 
+async function attack() {
+    let random = Math.random();
+    let attackResult;
+    if (random <= 0.5) {
+        attackResult = "casco de tartaruga";
+    } else if (random > 0.5) {
+        attackResult = "Bomba";
+    }
+    return attackResult;
+}
+async function turbo() {
+    let random = Math.random();
+    let turboResult;
+    if (random >= 0.5) {
+        turboResult = "Sim";
+    }
+    return turboResult;
+}
+
 async function playRaceEngine(character1, character2) {
     for (let round = 1; round <= 5; round++) {
         console.log(`\n 🏁 Rodada ${round}`);
@@ -78,14 +97,45 @@ async function playRaceEngine(character1, character2) {
 
             if (powerResult1 > powerResult2 && character2.PONTOS > 0) {
                 console.log(`${character1.NOME} venceu o confronto!`);
-                character2.PONTOS--;
+                attack = await attack();
+                console.log(`${character1.NOME} atacou com ${attack}!`);
+                if (attack === "casco de tartaruga") {
+                    console.log(`${character2.NOME} perdeu 1 ponto!`);
+                    character2.PONTOS--;
+                } else if (attack === "Bomba") {
+                    console.log(`${character2.NOME} perdeu 2 pontos!`);
+                    character2.PONTOS -= 2;
+                    if (character2.PONTOS < 0) {
+                        character2.PONTOS = 0;
+                    }
+                }
+                turbo = await turbo();
+                if (turbo === "Sim") {
+                    console.log(`${character1.NOME} ganhou um turbo!`);
+                    character1.PONTOS++;
+                }
             }
 
             if (powerResult2 > powerResult1 && character1.PONTOS > 0) {
                 console.log(`${character2.NOME} venceu o confronto!`);
-                character1.PONTOS--;
+                attack = await attack();
+                console.log(`${character2.NOME} atacou com ${attack}!`);
+                if (attack === "casco de tartaruga") {
+                    console.log(`${character1.NOME} perdeu 1 ponto!`);
+                    character1.PONTOS--;
+                } else if (attack === "Bomba") {
+                    console.log(`${character1.NOME} perdeu 2 pontos!`);
+                    character1.PONTOS -= 2;
+                    if (character1.PONTOS < 0) {
+                        character1.PONTOS = 0;
+                    }
+                }
+                turbo = await turbo();
+                if (turbo === "Sim") {
+                    console.log(`${character2.NOME} ganhou um turbo!`);
+                    character2.PONTOS++;
+                }
             }
-
             console.log(powerResult1 === powerResult2 ? "Empate no confronto!" : "");
         }
 
@@ -93,10 +143,10 @@ async function playRaceEngine(character1, character2) {
         if (block !== "CONFRONTO") {
             if (totalTestSkill1 > totalTestSkill2) {
                 character1.PONTOS++;
-                console.log(`${character1.NOME} venceu a rodada! \n Nenhum personagem perdeu ponto.`);
+                console.log(`${character1.NOME} venceu a rodada!`);
             } else if (totalTestSkill1 < totalTestSkill2) {
                 character2.PONTOS++;
-                console.log(`${character2.NOME} venceu a rodada! \n Nenhum personagem perdeu ponto.`);
+                console.log(`${character2.NOME} venceu a rodada!`);
             } else {
                 console.log("Empate na rodada!, Nenhum personagem perdeu ponto.");
             }
